@@ -33,3 +33,43 @@ class Queue:
         else:
             self.size -= 1
             return self.storage.remove_head()
+
+from stack import Stack
+
+class StackedQueue:
+    def __init__(self):
+        self.size = 0
+        self.storage = []
+        self.inverter = []
+
+    def __len__(self):
+        return self.size
+
+    def enqueue(self, value):
+
+        while len(self.storage) != 0:
+            self.inverter.append(self.storage[-1])
+            self.storage.pop()
+
+        self.storage.append(value)
+
+        while len(self.inverter) != 0:
+            self.storage.append(self.inverter[-1])
+            self.inverter.pop()
+
+        self.size += 1
+
+    def dequeue(self):
+
+        if self.size == 0:
+            return
+
+        else:
+
+            popped = self.storage[-1]
+
+            self.storage.pop()
+
+            self.size -= 1
+
+            return popped
